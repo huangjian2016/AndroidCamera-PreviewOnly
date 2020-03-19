@@ -19,7 +19,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mHolder.addCallback(this);
     }
 
-    private static Camera getCameraInstance() {
+    public  Camera getCameraInstance() {
+        /*
         Camera c = null;
         try {
             c = Camera.open();
@@ -27,10 +28,20 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             Log.d(TAG, "camera is not available");
         }
         return c;
+        */
+        if(mCamera == null){
+            try{
+                mCamera = Camera.open();
+            } catch(Exception e){
+                Log.d(TAG,"camera is not available");
+            }
+        }
+        return mCamera;
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
-        mCamera = getCameraInstance();
+        //mCamera = getCameraInstance();
+        getCameraInstance();
         try {
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
